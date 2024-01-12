@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../infra/base-page";
+import { waitForElementToBeVisible } from "../../utils/wait-for-elements";
 
 export class WishList extends BasePage{
 
@@ -13,7 +14,8 @@ export class WishList extends BasePage{
     }
 
     async getWishlistCountItems(){
-        return this.WISHLIST_ITEMS.count()
+       const state= await waitForElementToBeVisible(this.WISHLIST_ITEMS,1000,5);
+        return await this.WISHLIST_ITEMS.count();
     }
 
 }

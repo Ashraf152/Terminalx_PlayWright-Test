@@ -46,7 +46,7 @@ test.describe('test for adding an address',()=>{
     };
     const newPost = await apiCalls.addNewAddress(parseBodyToJSON(dataObject))
     const body = await newPost.json();
-    const cityName = body.data.createCustomerAddress.city;//1600785
+    const cityName = body.data.createCustomerAddress.city;
     id= body.data.createCustomerAddress.id;
     const addressPage = new AddressPage(page)
     await addressPage.refreshPage();
