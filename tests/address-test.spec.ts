@@ -11,6 +11,8 @@ test.describe('test for adding an address',()=>{
   let browserWrapper:BrowserWrapper;
   let page: Page
   let mainPage:MainPage
+  let id :Number
+  let apiCalls = new ApiCalls();
 
   test.beforeEach(async()=>{
     browserWrapper = new BrowserWrapper()
@@ -21,12 +23,16 @@ test.describe('test for adding an address',()=>{
     
   });
   test.afterEach(async()=>{
+    const dataObject={
+      "id":id
+    };
+    const newPost = await apiCalls.deleteAddress(parseBodyToJSON(dataObject))
     await browserWrapper.closeBrowser();
     //await page.close();
   })
   test("check address is successfully added",async()=>{
 
-    const apiCalls = new ApiCalls();
+    apiCalls = new ApiCalls();
     const dataObject: { input: AddressBodyRequest } = {
         input: setAddressBodyRequest(
             "Ashraf",
@@ -40,7 +46,8 @@ test.describe('test for adding an address',()=>{
     };
     const newPost = await apiCalls.addNewAddress(parseBodyToJSON(dataObject))
     const body = await newPost.json();
-    const cityName = body.data.createCustomerAddress.city;
+    const cityName = body.data.createCustomerAddress.city;//1600785
+    id= body.data.createCustomerAddress.id;
     const addressPage = new AddressPage(page)
     await addressPage.refreshPage();
     expect(await addressPage.getCityName()).toBe(cityName)

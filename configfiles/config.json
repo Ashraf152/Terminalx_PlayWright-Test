@@ -1,9 +1,9 @@
 {
-    "Cookie":"PHPSESSID=ls091veicl23l56elkddgfmqff",
     "email":"ashraf.egbaria@gmail.com",
     "password":"Ashraf123*",
     "loginUrl":"https://www.terminalx.com/pg/MutationUserLogin?v=I9dIkXxqUgEmvaClIy6g3%2FMlpMA%3D",
     "authFile":"playwright/.auth/user.json",
     "url":"https://www.terminalx.com/",
-    "addAddressUrl":"https://www.terminalx.com/pg/MutationCreateCustomerAddress?v=7M21Ktwz3hl5WT0GoUlh5nBYIc4%3D"
+    "addAddressUrl":"https://www.terminalx.com/pg/MutationCreateCustomerAddress?v=7M21Ktwz3hl5WT0GoUlh5nBYIc4%3D",
+    "deleteAddress":"https://www.terminalx.com/pg/MutationDeleteCustomerAddress?v=dbjqpwQyMdpxaESOYj%2BK1SoDn3"
 }
