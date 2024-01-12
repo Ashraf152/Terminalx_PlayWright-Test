@@ -1,0 +1,1 @@
+[{"uid":"b84547795983e218","name":"check address is successfully added","time":{"start":1705055107810,"stop":1705055111012,"duration":3202},"status":"passed","severity":"normal"},{"uid":"745f1ae517e4c9ce","name":"authenticate","time":{"start":1705055105867,"stop":1705055106952,"duration":1085},"status":"passed","severity":"normal"}]

@@ -12,4 +12,8 @@ export class ApiCalls{
         }
         return await postRequest(url,data,undefined,request)
     }
+
+    async addNewAddress(data: any){
+        return await postRequest(configjson.addAddressUrl ,data,undefined)
+    }
 }
