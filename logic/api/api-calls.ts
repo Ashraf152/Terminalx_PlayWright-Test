@@ -30,5 +30,8 @@ export class ApiCalls{
         return await postRequest(configjson.updateUserInfo,data,undefined)
     }
 
+    async addToCart(data:any){
+        return await postRequest(configjson.addToCart,data,undefined)
+    }
 
 }

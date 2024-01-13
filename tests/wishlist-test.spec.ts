@@ -6,7 +6,6 @@ import { WishList } from "../logic/pages/wishList-page";
 import {test, expect } from "@playwright/test";
 import { Page } from "playwright";
 import { wrapWishlistResponse } from "../utils/utils";
-import { WishlistItem } from "../logic/api/response-body/wishlist-response-body";
 
 
 test.describe('test for adding item to wishlist ', () => {
