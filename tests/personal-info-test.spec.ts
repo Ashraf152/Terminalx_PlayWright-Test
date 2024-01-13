@@ -4,7 +4,6 @@ import configJson from '../configfiles/config.json';
 import { MainPage } from '../logic/pages/main-page';
 import { ApiCalls } from '../logic/api/api-calls';
 import  {flipBirthDate, parseBodyToJSON}  from '../utils/utils';
-import { AddressPage } from '../logic/pages/address-page';
 import { setPersonalInfoObject } from '../logic/api/request-body/personal-info-body-request';
 import { PersonalInfoPage } from '../logic/pages/personal-info-page';
 
@@ -28,8 +27,8 @@ test.describe('test for udpate personal info',()=>{
   })
 
   test("check address is successfully added",async()=>{
-    let firstname = "Ashraf"
-    let lastname="Egbaria"
+    let firstname = "Egbaria"
+    let lastname="Ashraf"
     let birthDate="1992-02-15"
     apiCalls = new ApiCalls();
     const dataObject = setPersonalInfoObject(
