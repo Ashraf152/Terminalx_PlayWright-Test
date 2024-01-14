@@ -46,10 +46,10 @@ export class MainPage extends BasePage {
     async clickLogout(){
         await waitForElementToBeVisible(this.logoutButton,1000,5);
         await this.logoutButton.click()
-        await this.page.waitForLoadState("networkidle")
+        
     }
     async getTextInLoginButton(){
-        const state = await waitForElementToBeVisible(this.userLoginButton,1000,5);
+        await waitForElementToBeVisible(this.userLoginButton,1000,5);
         return (await this.userbutton.allInnerTexts())[0]
     }
     
