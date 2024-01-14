@@ -25,6 +25,7 @@ teardown.describe('logOut', async () => {
     })
     test("check user successfully loged out",async()=>{
       await mainPage.clickLogout();
+      await mainPage.refreshPage()
       expect((await mainPage.getTextInLoginButton()).includes(userName)).toBeFalsy()
     })
 

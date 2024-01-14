@@ -31,7 +31,7 @@ test.describe('test for adding item to wishlist ', () => {
         
         let dataObject={
             "sku": [
-                userDateJson.any_sku
+                userDateJson.polo
             ]
         }
 

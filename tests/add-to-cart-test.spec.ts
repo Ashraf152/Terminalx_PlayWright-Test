@@ -7,7 +7,7 @@ import { parseBodyToJSON, wrapCartResponse } from '../utils/utils';
 import { CheckOutPage } from '../logic/pages/checkout-page';
 import userDataJson from '../configfiles/userDataConfig.json';
 
-test.describe('test for adding an cart', () => {
+test.describe.serial('test for adding an cart', () => {
     let browserWrapper: BrowserWrapper;
     let page: Page
     let mainPage: MainPage
@@ -26,25 +26,38 @@ test.describe('test for adding an cart', () => {
         await browserWrapper.closeBrowser();
     })
     test("check items is successfully added", async () => {
-
         apiCalls = new ApiCalls();
-        const dataObject = {
-            "cart_items": [
-                {
-                    "data": {
-                        "quantity": 1,
-                        "any_sku": userDataJson.any_sku
-                    }
-                }
-            ],
-            "skip_collect": 1
-        };
-        
-
-        const newPost = await apiCalls.addToCart(parseBodyToJSON(dataObject))
+        let item=cart_item_object(userDataJson.polo)
+        const newPost = await apiCalls.addToCart(parseBodyToJSON(item))
         const data=await wrapCartResponse(newPost)
         quantity=data?.data.addAnyProductsToAnyCart.total_quantity
         page = await browserWrapper.getPage(configJson.cartUrl)
         expect(await checkOutPage.getItemCount()).toBe(quantity)
     })
+
+    test("check items prices", async () => {
+        apiCalls = new ApiCalls();
+        let item1=cart_item_object(userDataJson.polo)
+        await apiCalls.addToCart(parseBodyToJSON(item1))
+        let item2=cart_item_object(userDataJson.reebokShows)
+        await apiCalls.addToCart(parseBodyToJSON(item2))
+        page = await browserWrapper.getPage(configJson.cartUrl)
+        expect(await checkOutPage.getpricesList()).toBe(await checkOutPage.getCartPrice())
+    })
 })
+
+
+function cart_item_object(sku:string){
+    const dataObject = {
+        "cart_items": [
+            {
+                "data": {
+                    "quantity": 1,
+                    "any_sku": sku
+                }
+            }
+        ],
+        "skip_collect": 1
+    };
+    return dataObject
+}

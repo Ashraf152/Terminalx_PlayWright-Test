@@ -18,3 +18,7 @@ export function flipBirthDate(birthday: string): string {
 export async function wrapCartResponse(responseJson: any): Promise<CartResponse | null> {
     return await responseJson.json()
 }
+
+export function pricesplit(price:string ){
+    return parseFloat(price.split(" ")[0])
+}
