@@ -14,7 +14,7 @@ export class CheckOutPage extends BasePage {
         super(page);
         this.listOfProductInCart=this.page.locator('//div[@class="cart-items-list_wmqo"]/div[@class="container_1XqK"]/div/div[@class="cart-item_3yl1 rtl_3YUG"]')
         this.removeItemFromCart=this.page.locator('//button[@class="tx-link-a icon_u36n remove_wqPe tx-link_29YD"]')
-        this.itemPrice=this.page.locator('//div[@class="column_34Ze total-price_rLA-"]')
+        this.itemPrice=this.page.locator('//div[@class="cart-items-list_wmqo"]/div[@class="container_1XqK"]/div/div[@class="cart-item_3yl1 rtl_3YUG"]//div[@class="column_34Ze total-price_rLA-"]')
         this.cartitemsprices=this.page.locator('//div[@data-test-id="qa-order-totals-total-order"]')
         this.initPage();
     }
@@ -32,12 +32,13 @@ export class CheckOutPage extends BasePage {
     }
 
     async getpricesList(){
-        await this.page.waitForLoadState("networkidle")
-        const list=await this.listOfProductInCart.all()
+        const state = (await this.itemPrice.first())
+        await waitForElementToBeVisible(state,3000,7)
+        const list=await this.itemPrice.all()
 
         const promiseListPrices=list.map( async item=>{
             await waitForElementToBeVisible(item,1000,5);
-            return await item.locator('//div[@class="column_34Ze total-price_rLA-"]').innerText()
+            return await item.innerText()
         })
         const listPrices=await Promise.all(promiseListPrices);
         let sum:number =0
