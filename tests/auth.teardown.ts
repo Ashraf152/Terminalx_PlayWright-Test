@@ -10,14 +10,12 @@ teardown.describe('logOut', async () => {
     let browserWrapper:BrowserWrapper;
     let page: Page
     let mainPage:MainPage
-    let userName:string
   
     test.beforeEach(async()=>{
       browserWrapper = new BrowserWrapper()
       page = await browserWrapper.getPage(configJson.url)
       mainPage = new MainPage(page)
       await mainPage.clickOnUserProfileButton();
-      userName = await mainPage.getTextInLoginButton();
     });
     
     test.afterEach(async()=>{
@@ -26,7 +24,7 @@ teardown.describe('logOut', async () => {
     test("check user successfully loged out",async()=>{
       await mainPage.clickLogout();
       await mainPage.refreshPage()
-      expect((await mainPage.getTextInLoginButton()).includes(userName)).toBeFalsy()
+      expect((await mainPage.getTextInLoginButton()).includes(userDataJson.username)).toBeFalsy()
     })
 
 });

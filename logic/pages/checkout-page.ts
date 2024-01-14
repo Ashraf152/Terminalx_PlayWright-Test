@@ -24,7 +24,7 @@ export class CheckOutPage extends BasePage {
         return await this.listOfProductInCart.count();
     }
     async removeItem(){
-        await this.page.waitForLoadState("networkidle")
+        await this.page.waitForLoadState("load")
         let i =await this.removeItemFromCart.count()
         for( i ; i>0 ; i=i-1 ){
             await this.removeItemFromCart.first().click()
