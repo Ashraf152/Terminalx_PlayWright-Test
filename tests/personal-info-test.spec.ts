@@ -6,6 +6,7 @@ import { ApiCalls } from '../logic/api/api-calls';
 import  {flipBirthDate, parseBodyToJSON}  from '../utils/utils';
 import { setPersonalInfoObject } from '../logic/api/request-body/personal-info-body-request';
 import { PersonalInfoPage } from '../logic/pages/personal-info-page';
+import userDateJson from '../configfiles/userDataConfig.json'
 
 test.describe('test for udpate personal info',()=>{
   let browserWrapper:BrowserWrapper;
@@ -23,31 +24,27 @@ test.describe('test for udpate personal info',()=>{
   });
   test.afterEach(async()=>{
     await browserWrapper.closeBrowser();
-    //await page.close();
   })
 
   test("check address is successfully added",async()=>{
-    let firstname = "Egbaria"
-    let lastname="Ashraf"
-    let birthDate="1992-02-15"
     apiCalls = new ApiCalls();
     const dataObject = setPersonalInfoObject(
-        firstname,
-        lastname,
+      userDateJson.username,
+      userDateJson.lastname,
         "0524563894",
         false,
         false,
         "ashraf.egbaria@gmail.com",
         1,
-        birthDate
+        userDateJson.birthDate
     );
 
     
     await apiCalls.updatePersonalInfo(parseBodyToJSON(dataObject))
     const personalInfo = new PersonalInfoPage(page)
     await personalInfo.refreshPage();
-    expect(await personalInfo.getfirstName()).toBe(firstname)
-    expect(await personalInfo.getLastName()).toBe(lastname)
-    expect(await personalInfo.getBirthDate()).toBe(flipBirthDate(birthDate))
+    expect(await personalInfo.getfirstName()).toBe(userDateJson.username)
+    expect(await personalInfo.getLastName()).toBe(userDateJson.lastname)
+    expect(await personalInfo.getBirthDate()).toBe(flipBirthDate(userDateJson.birthDate))
   })
 })

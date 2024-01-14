@@ -7,3 +7,4 @@ setup('authenticate', async ({request}) => {
     await apiCall.performLogin(request,configJson.loginUrl,configJson.email,configJson.password)
     await request.storageState({ path: configJson.authFile });
 });
+

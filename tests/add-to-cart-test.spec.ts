@@ -4,9 +4,8 @@ import configJson from '../configfiles/config.json';
 import { MainPage } from '../logic/pages/main-page';
 import { ApiCalls } from '../logic/api/api-calls';
 import { parseBodyToJSON, wrapCartResponse } from '../utils/utils';
-import { AddressBodyRequest, setAddressBodyRequest } from '../logic/api/request-body/address-body-request';
-import { AddressPage } from '../logic/pages/address-page';
 import { CheckOutPage } from '../logic/pages/checkout-page';
+import userDataJson from '../configfiles/userDataConfig.json';
 
 test.describe('test for adding an cart', () => {
     let browserWrapper: BrowserWrapper;
@@ -25,7 +24,6 @@ test.describe('test for adding an cart', () => {
     test.afterEach(async () => {
         await checkOutPage.removeItem();
         await browserWrapper.closeBrowser();
-        //await page.close();
     })
     test("check items is successfully added", async () => {
 
@@ -35,7 +33,7 @@ test.describe('test for adding an cart', () => {
                 {
                     "data": {
                         "quantity": 1,
-                        "any_sku": "W25438000105"
+                        "any_sku": userDataJson.any_sku
                     }
                 }
             ],

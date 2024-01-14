@@ -4,18 +4,17 @@ import { waitForElementToBeVisible } from '../../utils/wait-for-elements';
 
 export class AddressPage extends BasePage {
     // LOCATORS
-    private readonly AddressTable: Locator
+    private readonly addressTable: Locator
 
     constructor(page: Page) {
         super(page);
-        this.AddressTable = this.page.locator('//tbody[@class="table-wrap-body_3QCY rtl_1cnX"]')
+        this.addressTable = this.page.locator('//tbody[@class="table-wrap-body_3QCY rtl_1cnX"]//tr/td[4]')
         this.initPage();
     }
 
     async getCityName(){
-        const cityLocator = await this.AddressTable.locator('//tr/td[4]');
-        await waitForElementToBeVisible(cityLocator,1000,5);
-        const cityName = await cityLocator.innerText();
+        await waitForElementToBeVisible(this.addressTable,1000,5);
+        const cityName = await this.addressTable.innerText();
         return cityName;
     }
 

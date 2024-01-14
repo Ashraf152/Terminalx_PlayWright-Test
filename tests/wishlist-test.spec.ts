@@ -6,6 +6,7 @@ import { WishList } from "../logic/pages/wishList-page";
 import {test, expect } from "@playwright/test";
 import { Page } from "playwright";
 import { wrapWishlistResponse } from "../utils/utils";
+import userDateJson from '../configfiles/userDataConfig.json'
 
 
 test.describe('test for adding item to wishlist ', () => {
@@ -30,7 +31,7 @@ test.describe('test for adding item to wishlist ', () => {
         
         let dataObject={
             "sku": [
-                "Z278736249"
+                userDateJson.any_sku
             ]
         }
 
