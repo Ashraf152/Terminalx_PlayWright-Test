@@ -4,6 +4,7 @@ import { MainPage } from "../logic/pages/main-page";
 import {test, expect } from "@playwright/test";
 import { Page } from "playwright";
 import { SearchPage, } from "../logic/pages/SearchPage";
+import userDateJson from '../configfiles/userDataConfig.json'
 
 test.describe('Test of search functionality', () => {
     let browserWrapper: BrowserWrapper;
@@ -14,7 +15,7 @@ test.describe('Test of search functionality', () => {
         browserWrapper = new BrowserWrapper()
         page = await browserWrapper.getPage(configJson.url)
         mainPage = new MainPage(page)
-        mainPage.clickOnSearch()
+        await mainPage.clickOnSearch()
 
     });
     test.afterEach(async () => {
@@ -23,7 +24,7 @@ test.describe('Test of search functionality', () => {
 
     test("test search results", async () =>{
         let searchPage = new SearchPage(page)
-        expect(await searchPage.searchInput("MANGO")).toBe("MANGO")
+        expect(await searchPage.searchInput(userDateJson.searchInput)).toBe(userDateJson.searchInput)
 
     })
     
