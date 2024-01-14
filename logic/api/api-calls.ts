@@ -4,7 +4,7 @@ import { APIRequestContext } from "playwright";
 
 
 export class ApiCalls{
-
+    
     async performLogin(request:APIRequestContext,url: string, user:string,password:string){
         const data ={
             username: user,
@@ -24,6 +24,14 @@ export class ApiCalls{
     }
     async deleteItemFromWishList(itemid:number | undefined){
         return await postRequest(configjson.deleteitemfromwishlist,{"id":itemid},undefined)
+    }
+
+    async updatePersonalInfo(data:any){
+        return await postRequest(configjson.updateUserInfo,data,undefined)
+    }
+
+    async addToCart(data:any){
+        return await postRequest(configjson.addToCart,data,undefined)
     }
 
 }

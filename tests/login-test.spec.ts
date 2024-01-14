@@ -14,7 +14,6 @@ test.describe('test for adding an address', () => {
     });
     test.afterEach(async () => {
         await browserWrapper.closeBrowser();
-        //await page.close();
     })
     test("check address is successfully added", async () => {
         const mainPage = new MainPage(page)

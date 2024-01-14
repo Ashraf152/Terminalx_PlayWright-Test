@@ -6,6 +6,7 @@ import { ApiCalls } from '../logic/api/api-calls';
 import  {parseBodyToJSON}  from '../utils/utils';
 import { AddressBodyRequest, setAddressBodyRequest } from '../logic/api/request-body/address-body-request';
 import { AddressPage } from '../logic/pages/address-page';
+import userDataJson from '../configfiles/userDataConfig.json'
 
 test.describe('test for adding an address',()=>{
   let browserWrapper:BrowserWrapper;
@@ -28,15 +29,14 @@ test.describe('test for adding an address',()=>{
     };
     const newPost = await apiCalls.deleteAddress(parseBodyToJSON(dataObject))
     await browserWrapper.closeBrowser();
-    //await page.close();
   })
   test("check address is successfully added",async()=>{
 
     apiCalls = new ApiCalls();
     const dataObject: { input: AddressBodyRequest } = {
         input: setAddressBodyRequest(
-            "Ashraf",
-            "egbaria",
+          userDataJson.username,
+          userDataJson.lastname,
             "12",
             "0524563894",
             "חיפה",
