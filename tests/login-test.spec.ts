@@ -16,7 +16,11 @@ test.describe('test for logIn', () => {
         await browserWrapper.closeBrowser();
     })
     test("check successfully loged in  ", async () => {
+        
+        //ACT
         const mainPage = new MainPage(page)
+        
+        //ASSERT
         expect(await mainPage.getUserLogedIn()).toBe(true);
 
     })

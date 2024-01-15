@@ -1,4 +1,4 @@
-import { patchRequest, postRequest } from "../../infra/api/apiRequest";
+import {postRequest } from "../../infra/api/apiRequest";
 import configjson from '../../configfiles/config.json'
 import { APIRequestContext } from "playwright";
 

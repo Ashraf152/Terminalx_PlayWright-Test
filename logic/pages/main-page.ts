@@ -27,18 +27,19 @@ export class MainPage extends BasePage {
     }
 
     async getUserLogedIn(){
-        const state = await waitForElementToBeVisible(this.userLoginButton,1000,5)
+        await waitForElementToBeVisible(this.userLoginButton,1000,5)
         return await this.userLoginButton.isVisible();
     }
     async clickOnUserProfileButton() {
-        const state = await waitForElementToBeVisible(this.userLoginButton,1000,5);
+        await waitForElementToBeVisible(this.userLoginButton,1000,5);
         await this.userLoginButton.click();
     }
     async clickOnAddressManagementButton(){
-        const state = await waitForElementToBeVisible(this.addressManagementButton,1000,5);
+        await waitForElementToBeVisible(this.addressManagementButton,1000,5);
         await this.addressManagementButton.click();
     }
     async clickOnWishList() {
+        await waitForElementToBeVisible(this.wishlistbutton,1000,5);
         await this.wishlistbutton.click();
     }
     async clickOnSearch() {
@@ -46,7 +47,7 @@ export class MainPage extends BasePage {
         await this.searchButton.click();
     }
     async clickOnPersonalInfoButton() {
-        const state = await waitForElementToBeVisible(this.personalInfoButton,1000,5);
+        await waitForElementToBeVisible(this.personalInfoButton,1000,5);
         await this.personalInfoButton.click();
     }
     async clickLogout(){

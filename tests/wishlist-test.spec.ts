@@ -29,17 +29,21 @@ test.describe('test for adding item to wishlist ', () => {
     })
     test("check item added to wishlist",async ()=>{
         
+        //ARRANGE
         let dataObject={
             "sku": [
                 userDateJson.polo
             ]
         }
 
+        //ACT
         const response=await apiCalls.addToWishList(dataObject)
         let wishlistpage=new WishList(page)
         await wishlistpage.refreshPage()
         const data=await wrapWishlistResponse(response)
         itemid=data?.data.addProductsToWishlist.anyWishlist.items[0].id
+
+        //ASSERT
         expect(await wishlistpage.getWishlistCountItems()).toBe(1)
         
     })

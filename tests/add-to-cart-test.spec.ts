@@ -26,26 +26,35 @@ test.describe.serial('test for adding an cart', () => {
         await browserWrapper.closeBrowser();
     })
     test("check items is successfully added", async () => {
+        //ARRANGE
         apiCalls = new ApiCalls();
         let item=cart_item_object(userDataJson.polo)
+        
+        //ACT
         const newPost = await apiCalls.addToCart(parseBodyToJSON(item))
         const data=await wrapCartResponse(newPost)
         quantity=data?.data.addAnyProductsToAnyCart.total_quantity
         page = await browserWrapper.getPage(configJson.cartUrl)
+        
+        //ASSERT
         expect(await checkOutPage.getItemCount()).toBe(quantity)
     })
 
     test("check items prices", async () => {
+        //ARRANGE
         apiCalls = new ApiCalls();
         let item1=cart_item_object(userDataJson.polo)
-        await apiCalls.addToCart(parseBodyToJSON(item1))
         let item2=cart_item_object(userDataJson.reebokShows)
+
+        //ACT
+        await apiCalls.addToCart(parseBodyToJSON(item1))
         await apiCalls.addToCart(parseBodyToJSON(item2))
         page = await browserWrapper.getPage(configJson.cartUrl)
+
+        //ASSERT
         expect(await checkOutPage.getpricesList()).toBe(await checkOutPage.getCartPrice())
     })
 })
-
 
 function cart_item_object(sku:string){
     const dataObject = {
