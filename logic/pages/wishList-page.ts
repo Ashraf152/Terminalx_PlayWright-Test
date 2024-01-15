@@ -12,7 +12,7 @@ export class WishList extends BasePage {
         this.WISHLIST_ITEMS = this.page.locator('//div[@class="listing_2tNy"]//li')
     }
     async getWishlistCountItems() {
-        await waitForElementToBeVisible(this.WISHLIST_ITEMS, 1000, 5);
+        await waitForElementToBeVisible(this.WISHLIST_ITEMS, 2000, 7);
         return await this.WISHLIST_ITEMS.count();
     }
 
