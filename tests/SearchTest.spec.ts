@@ -1,31 +1,39 @@
 import { BrowserWrapper } from "../infra/browser-wrapper";
 import configJson from '../configfiles/config.json'
 import { MainPage } from "../logic/pages/main-page";
-import {test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { Page } from "playwright";
-import { SearchPage, } from "../logic/pages/SearchPage";
-import userDateJson from '../configfiles/userDataConfig.json'
+import { SearchPage } from "../logic/pages/SearchPage";
+
+const testData = [
+  { searchInput: "MANGO" },
+  { searchInput: "RALPH LAUREN" },
+  { searchInput: "LACOSTE"},
+];
 
 test.describe('Test of search functionality', () => {
     let browserWrapper: BrowserWrapper;
-    let page:Page
-    let mainPage:MainPage
+    let page: Page;
+    let mainPage: MainPage;
 
     test.beforeEach(async () => {
         browserWrapper = new BrowserWrapper()
         page = await browserWrapper.getPage(configJson.url)
         mainPage = new MainPage(page)
-        await mainPage.clickOnSearch()
-
+        await mainPage.clickOnSearch();
     });
+
     test.afterEach(async () => {
         await browserWrapper.closeBrowser();
     })
 
-    test("test search results", async () =>{
-        let searchPage = new SearchPage(page)
-        expect(await searchPage.searchInput(userDateJson.searchInput)).toBe(userDateJson.searchInput)
+    testData.forEach((data, index) => {
+        test(`test search results - Test Case ${index + 1}`, async () => {
+            //ACT
+            let searchPage = new SearchPage(page)
 
-    })
-    
-})
+            //ASSERT
+            expect(await searchPage.searchInput(data.searchInput)).toBe(data.searchInput);
+        });
+    });
+});

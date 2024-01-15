@@ -27,6 +27,7 @@ test.describe('test for udpate personal info',()=>{
   })
 
   test("check address is successfully added",async()=>{
+    //ARRANGE
     apiCalls = new ApiCalls();
     const dataObject = setPersonalInfoObject(
       userDateJson.username,
@@ -39,10 +40,12 @@ test.describe('test for udpate personal info',()=>{
         userDateJson.birthDate
     );
 
-    
+    //ACT
     await apiCalls.updatePersonalInfo(parseBodyToJSON(dataObject))
     const personalInfo = new PersonalInfoPage(page)
     await personalInfo.refreshPage();
+
+    //ASSERT
     expect(await personalInfo.getfirstName()).toBe(userDateJson.username)
     expect(await personalInfo.getLastName()).toBe(userDateJson.lastname)
     expect(await personalInfo.getBirthDate()).toBe(flipBirthDate(userDateJson.birthDate))

@@ -48,8 +48,7 @@ export class CheckOutPage extends BasePage {
         return Number(sum.toFixed(2))
     }
     async getCartPrice(){
-         const i=pricesplit(await this.cartitemsprices.innerText())
-         return i
+         return pricesplit(await this.cartitemsprices.innerText())
     }
 
 

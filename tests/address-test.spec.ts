@@ -31,7 +31,7 @@ test.describe('test for adding an address',()=>{
     await browserWrapper.closeBrowser();
   })
   test("check address is successfully added",async()=>{
-
+    //ARRANGE
     apiCalls = new ApiCalls();
     const dataObject: { input: AddressBodyRequest } = {
         input: setAddressBodyRequest(
@@ -44,12 +44,16 @@ test.describe('test for adding an address',()=>{
             ["בית הדסה", "12", "12"]
         )
     };
+
+    //ACT
     const newPost = await apiCalls.addNewAddress(parseBodyToJSON(dataObject))
     const body = await newPost.json();
     const cityName = body.data.createCustomerAddress.city;
     id= body.data.createCustomerAddress.id;
     const addressPage = new AddressPage(page)
     await addressPage.refreshPage();
+
+    //ASSERT
     expect(await addressPage.getCityName()).toBe(cityName)
   })
 })
