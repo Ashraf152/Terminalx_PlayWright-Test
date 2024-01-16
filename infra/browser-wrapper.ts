@@ -4,8 +4,7 @@ export class BrowserWrapper{
     browser: Browser | undefined;
     page: Page | undefined;
 
-    constructor(){
-    }
+
 
     async getPage(url: string){
         if (!this.page){

@@ -11,5 +11,6 @@
     "updateUserInfo":"https://www.terminalx.com/pg/MutationCustomerEdit?v=RuN77Txv3TNDv0fVjnhNRK%2BL8Ww%3D",
     "addToCart":"https://www.terminalx.com/pg/MutationAddAnyProductsToAnyCart?v=t4MeNg4Nhm8cTtfc8ZbCpP00Dzo%3D",
     "cartUrl":"https://www.terminalx.com/checkout/cart",
-    "sportpageurl":"https://www.terminalx.com/sports/products"
+    "sportpageurl":"https://www.terminalx.com/sports/products",
+    "jacketsMenUrl":"https://www.terminalx.com/men/jackets-coats/jackets"
 }

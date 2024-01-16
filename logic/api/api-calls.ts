@@ -1,6 +1,10 @@
 import {postRequest } from "../../infra/api/apiRequest";
 import configjson from '../../configfiles/config.json'
 import { APIRequestContext } from "playwright";
+import { AddressBodyRequest, AddressId } from "./request-body/address-body-request";
+import { CartBodyRequest } from "./request-body/cart-body-request";
+import { WishListBodyRequest } from "./request-body/wishlist-body-request";
+import { PersonalInfoObject } from "./request-body/personal-info-body-request";
 
 
 export class ApiCalls{
@@ -10,28 +14,28 @@ export class ApiCalls{
             username: user,
             password: password
         }
-        return await postRequest(url,data,undefined,request)
+        return await postRequest(url,data,request)
     }
 
-    async addNewAddress(data: any){
-        return await postRequest(configjson.addAddressUrl ,data,undefined)
+    async addNewAddress(data: AddressBodyRequest){
+        return await postRequest(configjson.addAddressUrl ,data)
     }
-    async deleteAddress(data: any){
-        return await postRequest(configjson.deleteAddress ,data,undefined)
+    async deleteAddress(data: AddressId){
+        return await postRequest(configjson.deleteAddress ,data)
     }
-    async addToWishList(data:any){
-        return await postRequest(configjson.addWishListurl,data,undefined)
+    async addToWishList(data:WishListBodyRequest){
+        return await postRequest(configjson.addWishListurl,data)
     }
     async deleteItemFromWishList(itemid:number | undefined){
-        return await postRequest(configjson.deleteitemfromwishlist,{"id":itemid},undefined)
+        return await postRequest(configjson.deleteitemfromwishlist,{"id":itemid})
     }
 
-    async updatePersonalInfo(data:any){
-        return await postRequest(configjson.updateUserInfo,data,undefined)
+    async updatePersonalInfo(data:PersonalInfoObject){
+        return await postRequest(configjson.updateUserInfo,data)
     }
 
-    async addToCart(data:any){
-        return await postRequest(configjson.addToCart,data,undefined)
+    async addToCart(data:CartBodyRequest){
+        return await postRequest(configjson.addToCart,data)
     }
 
 }

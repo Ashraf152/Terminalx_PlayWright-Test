@@ -41,7 +41,7 @@ test.describe('test for udpate personal info',()=>{
     );
 
     //ACT
-    await apiCalls.updatePersonalInfo(parseBodyToJSON(dataObject))
+    let newInfp = await apiCalls.updatePersonalInfo(dataObject)
     const personalInfo = new PersonalInfoPage(page)
     await personalInfo.refreshPage();
 

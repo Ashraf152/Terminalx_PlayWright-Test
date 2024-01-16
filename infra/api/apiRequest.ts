@@ -1,6 +1,6 @@
 import { APIRequestContext, request } from "playwright"
 
-export const postRequest = async (url: string, body: any, headers?: Record<string, string>, availableRequest?: APIRequestContext) => {
+export const postRequest = async (url: string, body: any,availableRequest?: APIRequestContext, headers?: Record<string, string>) => {
     let newRequest: APIRequestContext
     const requestOptions: Record<string, any> = {
         data: body,
