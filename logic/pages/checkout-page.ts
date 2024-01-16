@@ -5,52 +5,50 @@ import { pricesplit } from '../../utils/utils';
 
 export class CheckOutPage extends BasePage {
     // LOCATORS
-    private readonly listOfProductInCart:Locator
-    private readonly removeItemFromCart:Locator
-    private readonly itemPrice:Locator
-    private readonly cartitemsprices:Locator
+    private readonly listOfProductInCart: Locator
+    private readonly removeItemFromCart: Locator
+    private readonly itemPrice: Locator
+    private readonly cartitemsprices: Locator
 
     constructor(page: Page) {
         super(page);
-        this.listOfProductInCart=this.page.locator('//div[@class="cart-items-list_wmqo"]/div[@class="container_1XqK"]/div/div[@class="cart-item_3yl1 rtl_3YUG"]')
-        this.removeItemFromCart=this.page.locator('//button[@class="tx-link-a icon_u36n remove_wqPe tx-link_29YD"]')
-        this.itemPrice=this.page.locator('//div[@class="cart-items-list_wmqo"]/div[@class="container_1XqK"]/div/div[@class="cart-item_3yl1 rtl_3YUG"]//div[@class="column_34Ze total-price_rLA-"]')
-        this.cartitemsprices=this.page.locator('//div[@data-test-id="qa-order-totals-total-order"]')
+        this.listOfProductInCart = this.page.locator('//div[@class="cart-items-list_wmqo"]/div[@class="container_1XqK"]/div/div[@class="cart-item_3yl1 rtl_3YUG"]')
+        this.removeItemFromCart = this.page.locator('//button[@class="tx-link-a icon_u36n remove_wqPe tx-link_29YD"]')
+        this.itemPrice = this.page.locator('//div[@class="cart-items-list_wmqo"]/div[@class="container_1XqK"]/div/div[@class="cart-item_3yl1 rtl_3YUG"]//div[@class="column_34Ze total-price_rLA-"]')
+        this.cartitemsprices = this.page.locator('//div[@data-test-id="qa-order-totals-total-order"]')
         this.initPage();
     }
 
-    async getItemCount(){
-        await waitForElementToBeVisible(this.listOfProductInCart,1000,5);
+    async getItemCount() {
+        await waitForElementToBeVisible(this.listOfProductInCart, 1000, 5);
         return await this.listOfProductInCart.count();
     }
-    async removeItem(){
+    async removeItem() {
         await this.page.waitForLoadState("load")
-        let i =await this.removeItemFromCart.count()
-        for( i ; i>0 ; i=i-1 ){
+        let i = await this.removeItemFromCart.count()
+        for (i; i > 0; i = i - 1) {
             await this.removeItemFromCart.first().click()
         }
     }
 
-    async getpricesList(){
+    async getpricesList() {
         const state = (await this.itemPrice.first())
-        await waitForElementToBeVisible(state,3000,7)
-        const list=await this.itemPrice.all()
+        await waitForElementToBeVisible(state, 3000, 7)
+        const list = await this.itemPrice.all()
 
-        const promiseListPrices=list.map( async item=>{
-            await waitForElementToBeVisible(item,1000,5);
+        const promiseListPrices = list.map(async item => {
+            await waitForElementToBeVisible(item, 1000, 5);
             return await item.innerText()
         })
-        const listPrices=await Promise.all(promiseListPrices);
-        let sum:number =0
-        listPrices.forEach( (price)=>{
+        const listPrices = await Promise.all(promiseListPrices);
+        let sum: number = 0
+        listPrices.forEach((price) => {
             sum += pricesplit(price)
         })
         return Number(sum.toFixed(2))
     }
-    async getCartPrice(){
-         return pricesplit(await this.cartitemsprices.innerText())
+    async getCartPrice() {
+        return pricesplit(await this.cartitemsprices.innerText())
     }
-
-
 
 }

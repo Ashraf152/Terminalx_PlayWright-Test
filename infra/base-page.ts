@@ -11,4 +11,7 @@ export class BasePage{
     async refreshPage(){
         await this.page.reload();
     }
+    async navigateTo(url:string){
+        await this.page.goto(url);
+    }
 }

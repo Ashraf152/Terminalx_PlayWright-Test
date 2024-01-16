@@ -3,7 +3,7 @@ import { BrowserWrapper } from '../infra/browser-wrapper';
 import configJson from '../configfiles/config.json';
 import { MainPage } from '../logic/pages/main-page';
 import { ApiCalls } from '../logic/api/api-calls';
-import  {flipBirthDate, parseBodyToJSON}  from '../utils/utils';
+import  {flipBirthDate}  from '../utils/utils';
 import { setPersonalInfoObject } from '../logic/api/request-body/personal-info-body-request';
 import { PersonalInfoPage } from '../logic/pages/personal-info-page';
 import userDateJson from '../configfiles/userDataConfig.json'
@@ -11,13 +11,11 @@ import userDateJson from '../configfiles/userDataConfig.json'
 test.describe('test for udpate personal info',()=>{
   let browserWrapper:BrowserWrapper;
   let page: Page
-  let mainPage:MainPage
-  let apiCalls = new ApiCalls();
 
   test.beforeEach(async()=>{
     browserWrapper = new BrowserWrapper()
     page = await browserWrapper.getPage(configJson.url)
-    mainPage = new MainPage(page)
+    let mainPage = new MainPage(page)
     await mainPage.clickOnUserProfileButton();
     await mainPage.clickOnPersonalInfoButton();
     
@@ -28,7 +26,7 @@ test.describe('test for udpate personal info',()=>{
 
   test("check address is successfully added",async()=>{
     //ARRANGE
-    apiCalls = new ApiCalls();
+    
     const dataObject = setPersonalInfoObject(
       userDateJson.username,
       userDateJson.lastname,
@@ -41,7 +39,8 @@ test.describe('test for udpate personal info',()=>{
     );
 
     //ACT
-    let newInfp = await apiCalls.updatePersonalInfo(dataObject)
+    let apiCalls = new ApiCalls();
+    await apiCalls.updatePersonalInfo(dataObject)
     const personalInfo = new PersonalInfoPage(page)
     await personalInfo.refreshPage();
 

@@ -17,8 +17,11 @@ test.describe('test for sorted prices',()=>{
   })
 
   test("check sorted prices",async()=>{
+    //ARRANGE
     let sportpage=new SportItemsPage(page)
+    //ACT
     await sportpage.sortbyprice()
+    //ASSERT
     expect(await sportpage.getItemsPrices()).toBeTruthy()
   })
 })

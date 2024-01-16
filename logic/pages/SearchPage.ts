@@ -13,7 +13,7 @@ export class SearchPage extends BasePage{
         this.SEARCH_INPUT = this.page.locator('//input[@data-test="search-input"]')
         this.SEARCH_SUBMIT = this.page.locator('//button[@data-test-id="qa-search-box-submit-button"]')
         this.SEARCH_RESULT = this.page.locator('//div[@class="right_1o65"]/span');
-    
+        this.initPage();
     }
 
     async searchInput(input:string){
