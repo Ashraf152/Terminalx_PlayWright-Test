@@ -7,6 +7,7 @@ import {test, expect } from "@playwright/test";
 import { Page } from "playwright";
 import { wrapWishlistResponse } from "../utils/utils";
 import userDateJson from '../configfiles/userDataConfig.json'
+import { setWishListItem } from "../logic/api/request-body/wishlist-body-request";
 
 
 test.describe('test for adding item to wishlist ', () => {
@@ -28,16 +29,9 @@ test.describe('test for adding item to wishlist ', () => {
         await browserWrapper.closeBrowser();
     })
     test("check item added to wishlist",async ()=>{
-        
-        //ARRANGE
-        let dataObject={
-            "sku": [
-                userDateJson.polo
-            ]
-        }
-
+  
         //ACT
-        const response=await apiCalls.addToWishList(dataObject)
+        const response=await apiCalls.addToWishList(setWishListItem(userDateJson.polo))
         let wishlistpage=new WishList(page)
         await wishlistpage.refreshPage()
         const data=await wrapWishlistResponse(response)

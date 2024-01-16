@@ -1,9 +1,10 @@
+import { addressbodyrespone } from "../logic/api/response-body/addressbodyresponse";
 import { CartResponse } from "../logic/api/response-body/cart-response-body";
 import { WishlistResponse } from "../logic/api/response-body/wishlist-response-body";
 
 export const parseBodyToJSON = (object: Object)=>{
     const str= JSON.stringify(object)
-    return JSON.parse(str)
+    return str
 }
 
 export async function wrapWishlistResponse(responseJson: any): Promise<WishlistResponse | null> {
@@ -35,4 +36,8 @@ export function areListsEqual<T>(list1: T[], list2: T[]): boolean {
     }
   
     return true;
+  }
+
+  export async function addressreponsewraper(responseJson: any): Promise<addressbodyrespone | null> {
+    return await responseJson.json()
   }

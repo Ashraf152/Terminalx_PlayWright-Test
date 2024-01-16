@@ -1,11 +1,21 @@
 interface AddressBodyRequest {
-    firstname: string;
-    lastname: string;
-    postcode: string;
-    telephone: string;
-    city: string;
-    country_id: string;
-    street: string[];
+    input: {
+        firstname: string;
+        lastname: string;
+        postcode: string;
+        telephone: string;
+        city: string;
+        country_id: string;
+        street: string[];
+    }
+}
+
+export interface AddressId{
+    id:number | undefined
+}
+
+const setAddressId=(ID:number | undefined):AddressId=>{
+    return {id:ID}
 }
 
 const setAddressBodyRequest = (
@@ -18,14 +28,16 @@ const setAddressBodyRequest = (
     street: string[]
 ): AddressBodyRequest => {
     return {
-        firstname: firstname,
-        lastname: lastname,
-        postcode: postcode,
-        telephone: telephone,
-        city: city,
-        country_id: country_id,
-        street: street
+        input: {
+            firstname: firstname,
+            lastname: lastname,
+            postcode: postcode,
+            telephone: telephone,
+            city: city,
+            country_id: country_id,
+            street: street
+        }
     };
 };
 
-export { AddressBodyRequest , setAddressBodyRequest };
+export { AddressBodyRequest, setAddressBodyRequest,setAddressId };
