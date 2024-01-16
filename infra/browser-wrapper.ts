@@ -25,7 +25,4 @@ export class BrowserWrapper{
             await this.browser.close();
         }
     }
-    async navigateTo(url:string){
-        if (this.page) await this.page.goto(url)
-    }
 }

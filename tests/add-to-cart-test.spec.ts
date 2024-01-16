@@ -5,17 +5,20 @@ import { ApiCalls } from '../logic/api/api-calls';
 import { CheckOutPage } from '../logic/pages/checkout-page';
 import userDataJson from '../configfiles/userDataConfig.json';
 import { setCartBodyRequest } from '../logic/api/request-body/cart-body-request';
-import {wrapCartResponse } from '../utils/utils';
+import {wrapApiResponse } from '../utils/utils';
+import { CartResponse } from '../logic/api/response-body/cart-response-body';
 
 test.describe.serial('test for adding an cart', () => {
     let browserWrapper: BrowserWrapper;
     let page: Page
     let checkOutPage:CheckOutPage
+    let apiCalls: ApiCalls ;
 
     test.beforeEach(async () => {
         browserWrapper = new BrowserWrapper()
         page = await browserWrapper.getPage(configJson.url)
         checkOutPage = new CheckOutPage(page);
+        apiCalls = new ApiCalls();
     });
     test.afterEach(async () => {
         await checkOutPage.removeItem();
@@ -23,14 +26,13 @@ test.describe.serial('test for adding an cart', () => {
     })
     test("check items is successfully added", async () => {
         //ARRANGE
-        const apiCalls = new ApiCalls();
         let item=setCartBodyRequest(userDataJson.polo)
         
         //ACT
         const newPost = await apiCalls.addToCart((item))
-        const data=await wrapCartResponse(newPost)
+        const data=await wrapApiResponse<CartResponse>(newPost)
         const quantity=data?.data.addAnyProductsToAnyCart.total_quantity
-        page = await browserWrapper.getPage(configJson.cartUrl)
+        await checkOutPage.navigateTo(configJson.cartUrl)
         
         //ASSERT
         expect(await checkOutPage.getItemCount()).toBe(quantity)
@@ -43,10 +45,9 @@ test.describe.serial('test for adding an cart', () => {
         let item2=setCartBodyRequest(userDataJson.reebokShows)
 
         //ACT
-        const apiCalls = new ApiCalls();
         await apiCalls.addToCart(item1)
         await apiCalls.addToCart(item2)
-        page = await browserWrapper.getPage(configJson.cartUrl)
+        await checkOutPage.navigateTo(configJson.cartUrl)
 
         //ASSERT
         expect(await checkOutPage.getpricesList()).toBe(await checkOutPage.getCartPrice())

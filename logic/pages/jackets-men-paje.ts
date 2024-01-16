@@ -24,36 +24,38 @@ export class JacketsMenPage extends BasePage {
         await this.saleOption.click()
         await waitForElementToBeVisible(this.seventyPercent, 1000, 5)
         await this.seventyPercent.click();
+        await this.refreshPage();
     }
 
     async getAllJacketsAreInSale() {
-        await this.page.waitForLoadState('networkidle')
 
         const stateOld = (await this.oldprices.first())
-        await waitForElementToBeVisible(stateOld,3000,7)
+        await waitForElementToBeVisible(stateOld, 3000, 7)
         const stateNew = (await this.newprices.first())
-        await waitForElementToBeVisible(stateNew,3000,7)
+        await waitForElementToBeVisible(stateNew, 3000, 7)
 
-        const listOldPrices=await this.oldprices.all()
-        const promiseListOldPrices=listOldPrices.map( async item=>{
-            await waitForElementToBeVisible(item,1000,5);
+        const listOldPrices = await this.oldprices.all()
+        const promiseListOldPrices = listOldPrices.map(async item => {
+            await this.page.waitForLoadState('load')
+            await waitForElementToBeVisible(item, 1000, 5);
             return await item.innerText()
         })
 
-        const listNewPrices=await this.newprices.all()
-        const promiseListNewPrices=listNewPrices.map( async item=>{
-            await waitForElementToBeVisible(item,1000,5);
+        const listNewPrices = await this.newprices.all()
+        const promiseListNewPrices = listNewPrices.map(async item => {
+            await this.page.waitForLoadState('load')
+            await waitForElementToBeVisible(item, 1000, 5);
             return await item.innerText()
         })
-        
-        const listOldPricesString=await Promise.all(promiseListOldPrices);
-        const listNewPricesString=await Promise.all(promiseListNewPrices);
 
-        const listOldprices=listOldPricesString.map<number>(price=>{return Number(pricesplit(price).toFixed(2));})
-        const listNewprices=listNewPricesString.map<number>(price=>{return Number(pricesplit(price).toFixed(2));})
+        const listOldPricesString = await Promise.all(promiseListOldPrices);
+        const listNewPricesString = await Promise.all(promiseListNewPrices);
+
+        const listOldprices = listOldPricesString.map<number>(price => { return Number(pricesplit(price).toFixed(2)); })
+        const listNewprices = listNewPricesString.map<number>(price => { return Number(pricesplit(price).toFixed(2)); })
 
         const newList: number[] = listOldprices.map((value) => Number((value * 0.30).toFixed(2)));
-        return areListsEqual<number>(listNewprices,newList)
+        return areListsEqual<number>(listNewprices, newList)
 
     }
 

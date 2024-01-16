@@ -5,21 +5,15 @@ import { test, expect } from "@playwright/test";
 import { Page } from "playwright";
 import { SearchPage } from "../logic/pages/SearchPage";
 
-const testData = [
-  { searchInput: "MANGO" },
-  { searchInput: "RALPH LAUREN" },
-  { searchInput: "LACOSTE"},
-];
 
 test.describe('Test of search functionality', () => {
     let browserWrapper: BrowserWrapper;
     let page: Page;
-    let mainPage: MainPage;
 
     test.beforeEach(async () => {
         browserWrapper = new BrowserWrapper()
         page = await browserWrapper.getPage(configJson.url)
-        mainPage = new MainPage(page)
+        let mainPage = new MainPage(page)
         await mainPage.clickOnSearch();
     });
 
@@ -27,8 +21,14 @@ test.describe('Test of search functionality', () => {
         await browserWrapper.closeBrowser();
     })
 
+    const testData = [
+        { searchInput: "MANGO" },
+        { searchInput: "RALPH LAUREN" },
+        { searchInput: "LACOSTE"},
+      ];
+      
     testData.forEach((data, index) => {
-        test(`test search results - Test Case ${index + 1}`, async () => {
+        test(`Test Case ${index + 1} - searching for - ${data.searchInput} `, async () => {
             //ACT
             let searchPage = new SearchPage(page)
 
