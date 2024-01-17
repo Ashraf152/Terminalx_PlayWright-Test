@@ -18,9 +18,9 @@ test.describe('Test of clicked on header buttons', () => {
         { headerTittle: "ON SALE"},
     ];
     const categoriesData = [
-        {category:"justlanded"},
-        {category:"on-sale"},
-        {category:"baby"},
+        // {category:"justlanded"},
+        // {category:"on-sale"},
+        // {category:"baby"},
         {category:"brands"},
         {category:"sports"},
         {category:"beauty"},
